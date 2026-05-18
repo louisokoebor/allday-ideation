@@ -524,26 +524,28 @@
     .step-icon {
       width: 64px;
       height: 64px;
-      border-radius: var(--radius-sm);
+      border-radius: 50%;
       background: linear-gradient(to bottom, var(--primary), var(--secondary));
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
     }
-    .step-icon svg { width: 30px; height: 30px; color: var(--white); }
-    .step-icon img { width: 34px; height: 34px; object-fit: contain; }
+    .step-icon svg { width: 40px; height: 40px; color: var(--white); }
+    .step-icon img { width: 48px; height: 48px; object-fit: contain; }
     .step-icon-1 { background: #23cca1 !important; }
     .step-icon-2 { background: var(--primary) !important; }
     .step-icon-3 { background: #de7d30 !important; }
-    .step-label-3 { color: #de7d30 !important; }
+    .step-label-1 { background: rgba(35,204,161,.12); color: #23cca1 !important; }
+    .step-label-2 { background: rgba(16,143,113,.08); color: var(--primary) !important; }
+    .step-label-3 { background: rgba(222,125,48,.1); color: #de7d30 !important; }
     .step-num {
       position: absolute;
-      top: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 24px;
-      height: 24px;
+      top: -8px;
+      left: -8px;
+      transform: none;
+      width: 28px;
+      height: 28px;
       background: var(--accent);
       border-radius: 50%;
       display: flex;
@@ -559,7 +561,8 @@
       flex: 1;
       width: 2px;
       background: linear-gradient(to bottom, var(--secondary), rgba(35,204,161,.15));
-      margin: 8px 0 0;
+      margin: 6px 0 0;
+      min-height: 32px;
     }
     .step-right {
       padding-bottom: 8px;
@@ -797,19 +800,6 @@
       gap: 10px;
       font-size: 15px;
       color: var(--neutral-600);
-    }
-    .signup-list li::before {
-      content: '';
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: rgba(35,204,161,.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      margin-top: 2px;
-      position: relative;
     }
     .dot-marker {
       display: flex;
@@ -1627,7 +1617,7 @@
             <div class="step-connector"></div>
           </div>
           <div class="step-right">
-            <div class="step-label">Step 1</div>
+            <div class="step-label step-label-1">Step 1</div>
             <h3>Submit Your Details</h3>
             <p>Fill out a quick form or send us a message with your travel dates, destination, budget, and any visa requirements.</p>
           </div>
@@ -1644,7 +1634,7 @@
             <div class="step-connector"></div>
           </div>
           <div class="step-right">
-            <div class="step-label">Step 2</div>
+            <div class="step-label step-label-2">Step 2</div>
             <h3>Speak With Your Agent</h3>
             <p>Get a call or WhatsApp message from a dedicated travel expert who will walk you through your options clearly.</p>
             <div class="step-note">
