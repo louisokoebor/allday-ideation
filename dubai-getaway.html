@@ -247,42 +247,53 @@
     }
 
     /* ── Itinerary ─────────────────────────────────────────────── */
-    .itinerary-section { padding: 80px 0; background: var(--white); }
-    .itinerary-inner { max-width: 780px; margin: 0 auto; }
+    /* ── Itinerary ─────────────────────────────────────────────── */
+    .itinerary-section { padding: 80px 0; background: #f7f8fa; }
+    .itinerary-inner {
+      max-width: 640px; margin: 0 auto;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+    /* Hide the old left-column entirely */
+    .day-left { display: none; }
     .day-item {
-      display: flex; gap: 28px; position: relative;
-      padding-bottom: 40px;
+      padding: 24px 32px;
+      border-bottom: 1px solid var(--neutral-100);
     }
-    .day-item:last-child { padding-bottom: 0; }
-    .day-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
-    .day-circle {
-      width: 56px; height: 56px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
+    .day-item:last-child { border-bottom: none; }
+    /* Icon + label row */
+    .day-header {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 6px;
+    }
+    .day-icon-wrap {
+      width: 32px; height: 32px; border-radius: 6px;
+      background: rgba(16,143,113,.1);
       display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; position: relative; z-index: 1;
-      box-shadow: 0 4px 12px rgba(16,143,113,.3);
+      flex-shrink: 0;
     }
-    .day-circle span { font-family: var(--font-head); font-size: 15px; font-weight: 700; color: var(--white); }
-    .day-line {
-      width: 2px; flex: 1; background: linear-gradient(to bottom, var(--secondary), rgba(35,204,161,.15));
-      margin-top: 8px; min-height: 32px;
+    .day-icon-wrap svg { width: 16px; height: 16px; stroke: var(--primary); }
+    .day-label {
+      font-size: 12px; font-weight: 700; color: var(--primary);
+      letter-spacing: .08em; text-transform: uppercase;
     }
-    .day-item:last-child .day-line { display: none; }
-    .day-content {
-      background: var(--neutral-100); border-radius: var(--radius-lg);
-      padding: 24px 28px; flex: 1;
-      border-left: 3px solid var(--secondary);
+    .day-content h3 {
+      font-family: var(--font-head); font-size: 17px; font-weight: 600;
+      color: var(--neutral-700); margin-bottom: 12px;
     }
-    .day-label { font-size: 12px; font-weight: 700; color: var(--secondary); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; }
-    .day-content h3 { font-family: var(--font-head); font-size: 19px; font-weight: 600; color: var(--neutral-700); margin-bottom: 12px; }
-    .day-activities { display: flex; flex-direction: column; gap: 8px; }
+    /* Activities: dashed left border, indented — TravelBird style */
+    .day-activities {
+      padding-left: 16px;
+      border-left: 2px dashed rgba(35,204,161,.5);
+      display: flex; flex-direction: column; gap: 0;
+    }
     .day-act {
-      display: flex; align-items: flex-start; gap: 10px; font-size: 15px; color: var(--neutral-600); line-height: 1.5;
+      font-size: 14px; color: var(--neutral-600); line-height: 1.6;
+      padding: 4px 0;
     }
-    .day-act::before {
-      content: ''; width: 7px; height: 7px; border-radius: 50%;
-      background: var(--secondary); flex-shrink: 0; margin-top: 7px;
-    }
+    .day-act::before { display: none; }
+    .day-act strong { color: var(--neutral-700); font-weight: 600; }
 
     /* ── Booking section ───────────────────────────────────────── */
     .booking-section { padding: 80px 0; background: var(--neutral-100); }
@@ -493,9 +504,7 @@
     }
     @media (max-width: 480px) {
       .stat-item { width: 100%; }
-      .day-item { gap: 16px; }
-      .day-circle { width: 44px; height: 44px; }
-      .day-circle span { font-size: 13px; }
+      .day-item { padding: 20px 18px; }
     }
   </style>
 </head>
@@ -745,12 +754,13 @@
 
         <!-- Day 1 -->
         <div class="day-item reveal" data-delay="1">
-          <div class="day-left">
-            <div class="day-circle"><span>1</span></div>
-            <div class="day-line"></div>
-          </div>
-          <div class="day-content">
-            <div class="day-label">Day 1 · Arrival</div>
+          <div class="day-content" data-day="1">
+            <div class="day-header">
+              <div class="day-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+              </div>
+              <div class="day-label">Day 1 · Arrival</div>
+            </div>
             <h3>Lagos → Dubai: Arrival & Check-In</h3>
             <div class="day-activities">
               <div class="day-act">Depart Lagos (LOS) — overnight or early morning flight to Dubai</div>
@@ -764,12 +774,13 @@
 
         <!-- Day 2 -->
         <div class="day-item reveal" data-delay="2">
-          <div class="day-left">
-            <div class="day-circle"><span>2</span></div>
-            <div class="day-line"></div>
-          </div>
-          <div class="day-content">
-            <div class="day-label">Day 2 · Sightseeing</div>
+          <div class="day-content" data-day="2">
+            <div class="day-header">
+              <div class="day-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              </div>
+              <div class="day-label">Day 2 · Sightseeing</div>
+            </div>
             <h3>Dubai City Tour — Icons & Landmarks</h3>
             <div class="day-activities">
               <div class="day-act">Breakfast at hotel</div>
@@ -783,12 +794,13 @@
 
         <!-- Day 3 -->
         <div class="day-item reveal" data-delay="3">
-          <div class="day-left">
-            <div class="day-circle"><span>3</span></div>
-            <div class="day-line"></div>
-          </div>
-          <div class="day-content">
-            <div class="day-label">Day 3 · Adventure</div>
+          <div class="day-content" data-day="3">
+            <div class="day-header">
+              <div class="day-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/><path d="M12 8v4l3 3"/></svg>
+              </div>
+              <div class="day-label">Day 3 · Adventure</div>
+            </div>
             <h3>Desert Safari — Dunes, Camels & BBQ</h3>
             <div class="day-activities">
               <div class="day-act">Morning at leisure — hotel pool, spa, or personal exploration</div>
@@ -802,12 +814,13 @@
 
         <!-- Day 4 -->
         <div class="day-item reveal" data-delay="4">
-          <div class="day-left">
-            <div class="day-circle"><span>4</span></div>
-            <div class="day-line"></div>
-          </div>
-          <div class="day-content">
-            <div class="day-label">Day 4 · Culture & Shopping</div>
+          <div class="day-content" data-day="4">
+            <div class="day-header">
+              <div class="day-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+              </div>
+              <div class="day-label">Day 4 · Culture & Shopping</div>
+            </div>
             <h3>Old Dubai, Gold Souk & Free Time</h3>
             <div class="day-activities">
               <div class="day-act">Breakfast at hotel</div>
@@ -821,12 +834,13 @@
 
         <!-- Day 5 -->
         <div class="day-item reveal" data-delay="5">
-          <div class="day-left">
-            <div class="day-circle"><span>5</span></div>
-            <div class="day-line"></div>
-          </div>
-          <div class="day-content">
-            <div class="day-label">Day 5 · Departure</div>
+          <div class="day-content" data-day="5">
+            <div class="day-header">
+              <div class="day-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </div>
+              <div class="day-label">Day 5 · Departure</div>
+            </div>
             <h3>Check-Out & Return to Lagos</h3>
             <div class="day-activities">
               <div class="day-act">Final breakfast at hotel</div>
