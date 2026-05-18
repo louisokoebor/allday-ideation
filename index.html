@@ -1,0 +1,2008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AllDay Holdings — Travel Made Easy for Nigerians</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Design tokens ─────────────────────────────────────────── */
+    :root {
+      --primary:     #108f71;
+      --primary-h:   #0a6b54;
+      --secondary:   #23cca1;
+      --accent:      #ed7707;
+      --neutral-700: #2d3748;
+      --neutral-600: #4a5568;
+      --neutral-300: #d1d5dc;
+      --neutral-100: #f7f8fa;
+      --white:       #ffffff;
+      --shadow-card: 0 1px 1.5px rgba(0,0,0,.1), 0 1px 1px rgba(0,0,0,.1);
+      --shadow-lg:   0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -2px rgba(0,0,0,.1);
+      --radius-sm:   8px;
+      --radius-md:   12px;
+      --radius-lg:   16px;
+      --radius-pill: 999px;
+      --font-head:   'Poppins', sans-serif;
+      --font-body:   'Open Sans', sans-serif;
+    }
+
+    /* ── Reset ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); color: var(--neutral-700); background: var(--white); line-height: 1.5; }
+    img  { display: block; max-width: 100%; }
+    a    { text-decoration: none; color: inherit; }
+    ul   { list-style: none; }
+    input, button { font-family: inherit; border: none; outline: none; cursor: pointer; }
+
+    /* ── Utility ───────────────────────────────────────────────── */
+    .container {
+      width: 100%;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 122px;
+    }
+    .section-inner {
+      max-width: 1196px;
+      margin: 0 auto;
+    }
+    .section-heading {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .section-heading h2 {
+      font-family: var(--font-head);
+      font-size: 36px;
+      font-weight: 600;
+      color: var(--neutral-700);
+      line-height: 1.3;
+      margin-bottom: 16px;
+    }
+    .section-heading p {
+      font-size: 16px;
+      color: var(--neutral-600);
+      line-height: 1.6;
+      max-width: 768px;
+      margin: 0 auto;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--primary);
+      color: var(--white);
+      font-family: var(--font-head);
+      font-size: 16px;
+      font-weight: 500;
+      padding: 12px 24px;
+      border-radius: var(--radius-pill);
+      border: none;
+      cursor: pointer;
+      transition: background .2s;
+      white-space: nowrap;
+    }
+    .btn-primary:hover { background: var(--primary-h); }
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      color: var(--white);
+      font-family: var(--font-head);
+      font-size: 16px;
+      font-weight: 500;
+      padding: 11px 24px;
+      border-radius: var(--radius-pill);
+      border: 2px solid rgba(255,255,255,.7);
+      cursor: pointer;
+      transition: background .2s, color .2s;
+      white-space: nowrap;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,.15); }
+
+    /* ── Navbar ────────────────────────────────────────────────── */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      box-shadow: 0 4px 2px rgba(0,0,0,.08);
+    }
+    .nav-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 122px;
+      height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .nav-logo-img {
+      height: 48px;
+      width: auto;
+      display: block;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .nav-links a {
+      font-size: 16px;
+      color: var(--neutral-700);
+      font-family: var(--font-body);
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-links .services-wrap { position: relative; }
+    .nav-links .services-wrap > a { display: flex; align-items: center; gap: 4px; }
+    .nav-links .services-wrap > a svg { width: 14px; height: 14px; }
+    .nav-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 0;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      box-shadow: 0 8px 24px rgba(0,0,0,.12);
+      padding: 8px 0;
+      min-width: 180px;
+      z-index: 200;
+    }
+    .nav-links .services-wrap:hover .nav-dropdown { display: block; }
+    .nav-dropdown a {
+      display: block;
+      padding: 10px 20px;
+      font-size: 15px;
+      color: var(--neutral-600);
+    }
+    .nav-dropdown a:hover { color: var(--primary); background: var(--neutral-100); }
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-mobile-menu {
+      display: none;
+      flex-direction: column;
+      background: var(--white);
+      border-top: 1px solid var(--neutral-300);
+      padding: 16px 0;
+    }
+    .nav-mobile-menu a {
+      padding: 12px 20px;
+      font-size: 16px;
+      color: var(--neutral-700);
+      display: block;
+    }
+    .nav-mobile-menu a:hover { color: var(--primary); }
+    .nav-mobile-menu .mobile-cta {
+      margin: 8px 20px 0;
+    }
+
+    /* ── Hero ──────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 647px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: url('images/hero/hero-image.png') center/cover no-repeat;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.6);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 660px;
+      padding: 80px 24px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: var(--radius-pill);
+      padding: 6px 14px;
+      font-size: 13px;
+      color: var(--white);
+      margin-bottom: 28px;
+    }
+    .hero-badge span {
+      width: 8px; height: 8px;
+      background: var(--secondary);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: 52px;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 24px;
+    }
+    .hero p {
+      font-size: 17px;
+      color: rgba(255,255,255,.85);
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+    .hero-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .hero-trust {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      flex-wrap: wrap;
+      margin-top: 48px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,.2);
+    }
+    .trust-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,.85);
+      font-size: 14px;
+    }
+    .trust-badge svg { width: 18px; height: 18px; color: var(--secondary); flex-shrink: 0; }
+
+    /* ── Packages ──────────────────────────────────────────────── */
+    .packages-section {
+      padding: 80px 0;
+      background: var(--white);
+    }
+    .cards-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .package-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+      display: flex;
+      flex-direction: column;
+    }
+    .package-card-img {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+    }
+    .package-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .package-card-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent, rgba(16,143,113,.2));
+    }
+    .badge-pill {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      z-index: 2;
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--white);
+      box-shadow: 0 2px 4px rgba(0,0,0,.15);
+    }
+    .badge-orange { background: var(--accent); }
+    .package-card-body {
+      padding: 20px 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .package-location {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--font-head);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--secondary);
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+    .package-location svg { width: 12px; height: 12px; flex-shrink: 0; }
+    .package-card-body h3 {
+      font-family: var(--font-head);
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--neutral-700);
+      line-height: 1.3;
+    }
+    .package-card-body .pkg-detail {
+      font-size: 14px;
+      color: var(--neutral-600);
+    }
+    .package-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: auto;
+      padding-top: 8px;
+    }
+    .package-price {
+      font-size: 16px;
+      color: var(--neutral-700);
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+    }
+    .package-price span { font-size: 13px; color: var(--neutral-600); }
+
+    /* ── Services ──────────────────────────────────────────────── */
+    .services-section {
+      padding: 80px 0;
+      background: var(--neutral-100);
+    }
+    .cards-6 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .service-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      flex-direction: column;
+    }
+    .service-card-img {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+    }
+    .service-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .service-card-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent, rgba(16,143,113,.2));
+    }
+    .service-card-img-placeholder {
+      width: 100%;
+      height: 100%;
+    }
+    .service-icon-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      z-index: 2;
+      width: 48px;
+      height: 48px;
+      background: var(--primary);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,.15);
+    }
+    .service-icon-badge svg { width: 24px; height: 24px; color: var(--white); }
+    .service-card-body {
+      padding: 24px 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .service-card-body h3 {
+      font-family: var(--font-head);
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--neutral-700);
+      line-height: 1.3;
+    }
+    .service-card-body p {
+      font-size: 15px;
+      color: var(--neutral-600);
+      line-height: 1.6;
+      flex: 1;
+    }
+    .learn-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--primary);
+      font-family: var(--font-body);
+    }
+    .learn-more svg { width: 14px; height: 14px; }
+
+    /* ── Why Trust ─────────────────────────────────────────────── */
+    .trust-section {
+      padding: 80px 0;
+      background: var(--white);
+    }
+    .cards-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .trust-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 25px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .trust-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(to bottom, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .trust-icon svg { width: 24px; height: 24px; color: var(--white); }
+    .trust-card h3 {
+      font-family: var(--font-head);
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--neutral-700);
+      line-height: 1.3;
+    }
+    .trust-card p {
+      font-size: 15px;
+      color: var(--neutral-600);
+      line-height: 1.65;
+    }
+
+    /* ── How It Works ──────────────────────────────────────────── */
+    .how-section {
+      padding: 80px 0;
+      background: var(--neutral-100);
+    }
+    .steps-container {
+      max-width: 640px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 48px 48px 32px;
+      box-shadow: var(--shadow-card);
+    }
+    .step {
+      display: flex;
+      gap: 28px;
+      position: relative;
+    }
+    .step:not(:last-of-type) { padding-bottom: 32px; }
+    .step-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .step-num-wrap {
+      position: relative;
+    }
+    .step-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(to bottom, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-icon svg { width: 30px; height: 30px; color: var(--white); }
+    .step-icon img { width: 34px; height: 34px; object-fit: contain; }
+    .step-icon-1 { background: #23cca1 !important; }
+    .step-icon-2 { background: var(--primary) !important; }
+    .step-icon-3 { background: #de7d30 !important; }
+    .step-label-3 { color: #de7d30 !important; }
+    .step-num {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 24px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-head);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--white);
+      z-index: 2;
+    }
+    .step-connector {
+      flex: 1;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--secondary), rgba(35,204,161,.15));
+      margin: 8px 0 0;
+    }
+    .step-right {
+      padding-bottom: 8px;
+      padding-top: 4px;
+    }
+    .step-label {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(16,143,113,.08);
+      border-radius: var(--radius-pill);
+      padding: 3px 10px;
+      font-family: var(--font-head);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--primary);
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .step-right h3 {
+      font-family: var(--font-head);
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--neutral-700);
+      margin-bottom: 10px;
+    }
+    .step-right p {
+      font-size: 15px;
+      color: var(--neutral-600);
+      line-height: 1.65;
+    }
+    .step-note {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .step-note svg { width: 15px; height: 15px; }
+    .steps-footer {
+      background: rgba(16,143,113,.06);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      font-size: 14px;
+      color: var(--neutral-600);
+      margin-top: 8px;
+    }
+
+    /* ── Testimonials ──────────────────────────────────────────── */
+    .testimonials-section {
+      padding: 80px 0;
+      background: var(--white);
+    }
+    .cards-3-testi {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .testi-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 32px 32px 24px;
+      box-shadow: var(--shadow-card);
+      border: 1px solid rgba(0,0,0,.05);
+      display: flex;
+      flex-direction: column;
+    }
+    .testi-quote-icon {
+      font-size: 48px;
+      line-height: 1;
+      color: var(--secondary);
+      font-family: Georgia, serif;
+      margin-bottom: 12px;
+      opacity: .6;
+    }
+    .testi-text {
+      font-size: 15px;
+      color: var(--neutral-600);
+      line-height: 1.7;
+      flex: 1;
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+    .testi-stars {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 12px;
+    }
+    .testi-stars svg { width: 16px; height: 16px; fill: #f59e0b; color: #f59e0b; }
+    .testi-author strong {
+      display: block;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--neutral-700);
+    }
+    .testi-author span {
+      font-size: 13px;
+      color: var(--neutral-600);
+    }
+
+    /* ── Blog ──────────────────────────────────────────────────── */
+    .blog-section {
+      padding: 80px 0;
+      background: var(--neutral-100);
+    }
+    .blog-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,.07);
+      display: flex;
+      flex-direction: column;
+    }
+    .blog-img {
+      height: 192px;
+      overflow: hidden;
+    }
+    .blog-img img { width: 100%; height: 100%; object-fit: cover; }
+    .blog-img-placeholder {
+      width: 100%;
+      height: 100%;
+    }
+    .blog-body {
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .blog-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .blog-tag {
+      background: rgba(16,143,113,.08);
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+    }
+    .blog-read-time {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 13px;
+      color: var(--neutral-600);
+    }
+    .blog-read-time svg { width: 14px; height: 14px; }
+    .blog-body h3 {
+      font-family: var(--font-head);
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--neutral-700);
+      line-height: 1.4;
+    }
+    .blog-body p {
+      font-size: 14px;
+      color: var(--neutral-600);
+      line-height: 1.65;
+      flex: 1;
+    }
+    .read-article {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--primary);
+      margin-top: 4px;
+    }
+    .read-article svg { width: 14px; height: 14px; }
+
+    /* ── Email Signup ───────────────────────────────────────────── */
+    .signup-section {
+      padding: 64px 0;
+      background: linear-gradient(159deg, rgba(16,143,113,.05) 0%, rgba(35,204,161,.05) 50%, rgba(16,143,113,.05) 100%);
+    }
+    .signup-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 4px 3px rgba(0,0,0,.08), 0 2px 2px rgba(0,0,0,.06);
+      padding: 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+    .signup-left h2 {
+      font-family: var(--font-head);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--neutral-700);
+      line-height: 1.3;
+      margin-bottom: 16px;
+    }
+    .signup-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .signup-eyebrow .icon-wrap {
+      width: 36px; height: 36px;
+      background: rgba(16,143,113,.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .signup-eyebrow .icon-wrap svg { width: 18px; height: 18px; color: var(--primary); }
+    .signup-eyebrow span {
+      font-family: var(--font-head);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    .signup-left p {
+      font-size: 15px;
+      color: var(--neutral-600);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .signup-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .signup-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 15px;
+      color: var(--neutral-600);
+    }
+    .signup-list li::before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(35,204,161,.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      position: relative;
+    }
+    .dot-marker {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .dot-marker-icon {
+      width: 20px; height: 20px;
+      background: rgba(35,204,161,.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .dot-marker-icon span {
+      width: 8px; height: 8px;
+      background: var(--secondary);
+      border-radius: 50%;
+      display: block;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--neutral-700);
+    }
+    .form-group input {
+      border: 1px solid var(--neutral-300);
+      border-radius: 14px;
+      padding: 13px 16px;
+      font-size: 15px;
+      color: var(--neutral-700);
+      width: 100%;
+      transition: border-color .2s;
+    }
+    .form-group input::placeholder { color: rgba(45,55,72,.45); }
+    .form-group input:focus { border-color: var(--primary); }
+    .signup-btn {
+      width: 100%;
+      padding: 14px 24px;
+      background: var(--primary);
+      color: var(--white);
+      font-family: var(--font-head);
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: var(--radius-pill);
+      border: none;
+      cursor: pointer;
+      transition: background .2s;
+      box-shadow: 0 4px 3px rgba(0,0,0,.1), 0 2px 2px rgba(0,0,0,.1);
+      margin-bottom: 14px;
+    }
+    .signup-btn:hover { background: var(--primary-h); }
+    .signup-disclaimer {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--neutral-600);
+      line-height: 1.55;
+    }
+    .signup-disclaimer svg { width: 15px; height: 15px; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── Footer ────────────────────────────────────────────────── */
+    .footer {
+      background: var(--neutral-700);
+      color: var(--white);
+      padding: 64px 0 0;
+    }
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr 1.2fr;
+      gap: 40px;
+      padding-bottom: 48px;
+    }
+    .footer-brand .logo-wrap {
+      margin-bottom: 20px;
+    }
+    .footer-logo-img {
+      height: 64px;
+      width: auto;
+      display: block;
+      filter: brightness(0) invert(1);
+    }
+    .footer-brand p {
+      font-size: 14px;
+      color: rgba(255,255,255,.65);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .footer-social {
+      display: flex;
+      gap: 10px;
+    }
+    .footer-social a {
+      width: 40px; height: 40px;
+      background: rgba(255,255,255,.08);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,.7);
+      transition: background .2s, color .2s;
+    }
+    .footer-social a:hover { background: var(--primary); color: var(--white); }
+    .footer-social a svg { width: 18px; height: 18px; }
+    .footer-col h4 {
+      font-family: var(--font-head);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .footer-col ul {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .footer-col ul a {
+      font-size: 14px;
+      color: rgba(255,255,255,.65);
+      transition: color .2s;
+    }
+    .footer-col ul a:hover { color: var(--secondary); }
+    .footer-contact-items {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .contact-icon {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,.08);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-icon svg { width: 18px; height: 18px; color: var(--secondary); }
+    .contact-item span {
+      font-size: 14px;
+      color: rgba(255,255,255,.75);
+    }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.1);
+      padding: 22px 0;
+    }
+    .footer-bottom-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-bottom p {
+      font-size: 13px;
+      color: rgba(255,255,255,.5);
+    }
+    .footer-legal {
+      display: flex;
+      gap: 24px;
+    }
+    .footer-legal a {
+      font-size: 13px;
+      color: rgba(255,255,255,.5);
+      transition: color .2s;
+    }
+    .footer-legal a:hover { color: var(--secondary); }
+
+    /* ══════════════════════════════════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════════════════════════════════ */
+
+    /* Keyframes */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes heroKenBurns {
+      from { transform: scale(1); }
+      to   { transform: scale(1.06); }
+    }
+    @keyframes floatBadge {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-5px); }
+    }
+    @keyframes shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position:  200% center; }
+    }
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50%       { background-position: 100% 50%; }
+    }
+    @keyframes pulse-ring {
+      0%   { transform: scale(.95); box-shadow: 0 0 0 0 rgba(16,143,113,.4); }
+      70%  { transform: scale(1);   box-shadow: 0 0 0 10px rgba(16,143,113,0); }
+      100% { transform: scale(.95); box-shadow: 0 0 0 0  rgba(16,143,113,0); }
+    }
+
+    /* ── Hero load animations ─────────────────────────────────── */
+    .hero-badge     { animation: fadeDown .6s cubic-bezier(.16,1,.3,1) .2s both; }
+    .hero h1        { animation: fadeUp   .7s cubic-bezier(.16,1,.3,1) .4s both; }
+    .hero p         { animation: fadeUp   .7s cubic-bezier(.16,1,.3,1) .55s both; }
+    .hero-cta       { animation: fadeUp   .7s cubic-bezier(.16,1,.3,1) .7s both; }
+    .hero-trust     { animation: fadeIn   .8s ease .95s both; }
+
+    /* Ken Burns on hero background */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: inherit;
+      background-size: cover;
+      animation: heroKenBurns 18s ease-in-out infinite alternate;
+      z-index: 0;
+      pointer-events: none;
+    }
+    /* Re-stack so text is above */
+    .hero::before { z-index: 1; }
+    .hero-content  { z-index: 3; }
+
+    /* Floating hero badge dot */
+    .hero-badge span { animation: floatBadge 3s ease-in-out infinite; }
+
+    /* ── Scroll reveal ─────────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .65s cubic-bezier(.16,1,.3,1),
+                  transform .65s cubic-bezier(.16,1,.3,1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Stagger via CSS custom property */
+    .reveal[data-delay="1"] { transition-delay: .08s; }
+    .reveal[data-delay="2"] { transition-delay: .16s; }
+    .reveal[data-delay="3"] { transition-delay: .24s; }
+    .reveal[data-delay="4"] { transition-delay: .32s; }
+    .reveal[data-delay="5"] { transition-delay: .40s; }
+    .reveal[data-delay="6"] { transition-delay: .48s; }
+
+    /* Section headings fade up from slightly less distance */
+    .reveal-heading {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal-heading.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Navbar animations ─────────────────────────────────────── */
+    .navbar { animation: fadeDown .5s cubic-bezier(.16,1,.3,1) both; }
+    .nav-links a {
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      border-radius: 2px;
+      transition: width .25s ease;
+    }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ── Button micro-interactions ────────────────────────────── */
+    .btn-primary {
+      transition: background .2s, transform .18s ease, box-shadow .18s ease;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(16,143,113,.35);
+    }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-outline {
+      transition: background .2s, color .2s, transform .18s ease;
+    }
+    .btn-outline:hover { transform: translateY(-2px); }
+
+    /* ── Card hover lifts ──────────────────────────────────────── */
+    .package-card {
+      transition: transform .3s cubic-bezier(.16,1,.3,1),
+                  box-shadow .3s ease;
+    }
+    .package-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0,0,0,.13);
+    }
+    .package-card-img img {
+      transition: transform .5s cubic-bezier(.16,1,.3,1);
+    }
+    .package-card:hover .package-card-img img {
+      transform: scale(1.06);
+    }
+
+    .service-card {
+      transition: transform .3s cubic-bezier(.16,1,.3,1),
+                  box-shadow .3s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 36px rgba(0,0,0,.12);
+    }
+    .service-card-img img {
+      transition: transform .5s cubic-bezier(.16,1,.3,1);
+    }
+    .service-card:hover .service-card-img img { transform: scale(1.06); }
+
+    .trust-card {
+      transition: transform .3s cubic-bezier(.16,1,.3,1),
+                  box-shadow .3s ease;
+    }
+    .trust-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,.1);
+    }
+
+    .testi-card {
+      transition: transform .3s cubic-bezier(.16,1,.3,1),
+                  box-shadow .3s ease;
+    }
+    .testi-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,.1);
+    }
+
+    .blog-card {
+      transition: transform .3s cubic-bezier(.16,1,.3,1),
+                  box-shadow .3s ease;
+    }
+    .blog-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 36px rgba(0,0,0,.1);
+    }
+    .blog-img img,
+    .blog-img > div { overflow: hidden; }
+
+    /* ── Trust icon pulse on hover ─────────────────────────────── */
+    .trust-icon {
+      transition: transform .25s ease;
+    }
+    .trust-card:hover .trust-icon { transform: scale(1.12); }
+
+    /* ── Step icon glow on hover ───────────────────────────────── */
+    .step-icon {
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .step:hover .step-icon {
+      transform: scale(1.08);
+      box-shadow: 0 0 0 6px rgba(16,143,113,.12);
+    }
+
+    /* ── Arrow slide on learn-more / read-article ──────────────── */
+    .learn-more svg,
+    .read-article svg {
+      transition: transform .2s ease;
+    }
+    .learn-more:hover svg,
+    .read-article:hover svg { transform: translateX(4px); }
+
+    /* ── Footer social hover scale ─────────────────────────────── */
+    .footer-social a {
+      transition: background .2s, color .2s, transform .2s ease;
+    }
+    .footer-social a:hover { transform: translateY(-3px) scale(1.08); }
+
+    /* ── Signup button CTA pulse ───────────────────────────────── */
+    .signup-btn {
+      transition: background .2s, transform .18s ease, box-shadow .18s ease;
+    }
+    .signup-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(16,143,113,.3);
+    }
+
+    /* ── Green gradient icon boxes shimmer on hover ────────────── */
+    .trust-icon,
+    .service-icon-badge,
+    .step-icon {
+      background-size: 200% 200%;
+      animation: gradientShift 4s ease infinite;
+    }
+
+    /* ── Nav logo subtle hover ─────────────────────────────────── */
+    .nav-logo { transition: opacity .2s; }
+    .nav-logo:hover { opacity: .85; }
+
+    /* ── Scroll-to-top smooth anchor feel ─────────────────────── */
+    .contact-item {
+      transition: transform .2s ease;
+    }
+    .contact-item:hover { transform: translateX(4px); }
+
+    /* ── Package badge bounce-in ───────────────────────────────── */
+    .badge-pill {
+      animation: fadeDown .4s cubic-bezier(.34,1.56,.64,1) .3s both;
+    }
+
+    /* ── Form inputs focus lift ───────────────────────────────── */
+    .form-group input {
+      transition: border-color .2s, box-shadow .2s, transform .15s ease;
+    }
+    .form-group input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(16,143,113,.12);
+      transform: translateY(-1px);
+    }
+
+    /* ── Respect reduced motion ────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+    }
+
+    /* ── Responsive ────────────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .container, .nav-inner { padding: 0 40px; }
+    }
+    @media (max-width: 900px) {
+      .cards-3, .cards-6, .cards-3-testi { grid-template-columns: 1fr 1fr; }
+      .cards-4 { grid-template-columns: 1fr 1fr; }
+      .signup-card { grid-template-columns: 1fr; gap: 32px; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .section-heading h2 { font-size: 28px; }
+      .hero h1 { font-size: 38px; }
+    }
+    @media (max-width: 1024px) {
+      .container, .nav-inner { padding: 0 16px; }
+      .nav-links, .nav-cta-wrap { display: none; }
+      .nav-hamburger { display: flex; }
+      .nav-mobile-menu.open { display: flex; }
+      .cards-3, .cards-6, .cards-3-testi, .cards-4 { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 30px; }
+      .hero-trust { flex-direction: column; gap: 14px; }
+      .section-heading h2 { font-size: 26px; }
+      .steps-container { padding: 32px 20px; }
+      .signup-card { padding: 28px 20px; }
+      .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom-inner { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 480px) {
+      .hero-cta { flex-direction: column; }
+      .hero-cta .btn-primary, .hero-cta .btn-outline { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════ NAVBAR ════════════════════ -->
+<header class="navbar">
+  <nav class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="images/logos/Allday Logo.png" alt="AllDay Holdings" class="nav-logo-img" />
+    </a>
+
+    <div class="nav-links">
+      <a href="#">Home</a>
+      <a href="#packages">Packages</a>
+      <div class="services-wrap">
+        <a href="#services">
+          Services
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6l4 4 4-4"/></svg>
+        </a>
+        <div class="nav-dropdown">
+          <a href="#">Visa Consultation</a>
+          <a href="#">Travel Packages</a>
+          <a href="#">Airport Transfers</a>
+          <a href="#">Group Trips</a>
+        </div>
+      </div>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#">About</a>
+      <a href="#">FAQs</a>
+    </div>
+
+    <div class="nav-cta-wrap">
+      <button class="btn-primary">Book Consultation</button>
+    </div>
+
+    <!-- Mobile hamburger -->
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2d3748" stroke-width="2" stroke-linecap="round">
+        <path d="M3 12h18M3 6h18M3 18h18"/>
+      </svg>
+    </button>
+  </nav>
+
+  <div class="nav-mobile-menu" id="mobile-menu">
+    <a href="#">Home</a>
+    <a href="#packages">Packages</a>
+    <a href="#services">Services</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#">About</a>
+    <a href="#">FAQs</a>
+    <div class="mobile-cta">
+      <button class="btn-primary" style="width:100%">Book Consultation</button>
+    </div>
+  </div>
+</header>
+
+<!-- ════════════════════ HERO ════════════════════ -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span></span>
+      Trusted by 500+ Nigerian Travellers
+    </div>
+    <h1>Travel Made Easy<br>for Nigerians</h1>
+    <p>Enjoy stress-free trip planning, visa assistance, and curated travel packages — handled with honesty, clarity, and fast communication.</p>
+    <div class="hero-cta">
+      <button class="btn-primary">Book Consultation</button>
+      <button class="btn-outline">View Packages</button>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+        Verified Consultants
+      </div>
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-3 3v-3z"/></svg>
+        Fast Responses
+      </div>
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        No Hidden Fees
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ PACKAGES ════════════════════ -->
+<section class="packages-section" id="packages">
+  <div class="container">
+    <div class="section-inner">
+      <div class="section-heading reveal-heading">
+        <h2>Featured Travel Packages</h2>
+        <p>AllDay Holdings helps Nigerians simplify their travel experience — from booking flights and hotels to navigating visas and airport transfers, all in one place.</p>
+      </div>
+      <div class="cards-3">
+        <!-- Package 1: Dubai -->
+        <div class="package-card reveal" data-delay="1">
+          <div class="package-card-img">
+            <img src="images/packages/dubai package-image.png" alt="Dubai skyline at sunset" />
+            <span class="badge-pill badge-orange">Most Popular</span>
+          </div>
+          <div class="package-card-body">
+            <div class="package-location">
+              <svg viewBox="0 0 12 12" fill="currentColor"><path d="M6 1a4 4 0 00-4 4c0 3 4 7 4 7s4-4 4-7a4 4 0 00-4-4zm0 5.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"/></svg>
+              Dubai, UAE
+            </div>
+            <h3>Dubai Getaway</h3>
+            <p class="pkg-detail">5 Nights · Flights + Hotel</p>
+            <p class="pkg-detail">Perfect for shopping, desert tours, and premium city experiences.</p>
+            <div class="package-footer">
+              <div class="package-price"><span>from</span> ₦850,000</div>
+              <a href="dubai-getaway.html" class="btn-primary" style="font-size:14px;padding:8px 18px">View Package</a>
+            </div>
+          </div>
+        </div>
+        <!-- Package 2: Zanzibar -->
+        <div class="package-card reveal" data-delay="2">
+          <div class="package-card-img">
+            <img src="images/packages/zanzibar package image.png" alt="Zanzibar beachfront" />
+          </div>
+          <div class="package-card-body">
+            <div class="package-location">
+              <svg viewBox="0 0 12 12" fill="currentColor"><path d="M6 1a4 4 0 00-4 4c0 3 4 7 4 7s4-4 4-7a4 4 0 00-4-4zm0 5.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"/></svg>
+              Zanzibar, Tanzania
+            </div>
+            <h3>Zanzibar Escape</h3>
+            <p class="pkg-detail">4 Nights · Beachfront Resort</p>
+            <p class="pkg-detail">Crystal clear waters, romantic beaches, and island adventure.</p>
+            <div class="package-footer">
+              <div class="package-price"><span>from</span> ₦720,000</div>
+              <button class="btn-primary" style="font-size:14px;padding:8px 18px">View Package</button>
+            </div>
+          </div>
+        </div>
+        <!-- Package 3: Turkey -->
+        <div class="package-card reveal" data-delay="3">
+          <div class="package-card-img">
+            <img src="images/packages/turkey package image.png" alt="Hot air balloons over Cappadocia" />
+            <span class="badge-pill badge-orange">Limited Offer</span>
+          </div>
+          <div class="package-card-body">
+            <div class="package-location">
+              <svg viewBox="0 0 12 12" fill="currentColor"><path d="M6 1a4 4 0 00-4 4c0 3 4 7 4 7s4-4 4-7a4 4 0 00-4-4zm0 5.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"/></svg>
+              Istanbul &amp; Cappadocia, Turkey
+            </div>
+            <h3>Turkey Adventure</h3>
+            <p class="pkg-detail">5 Nights · City &amp; Balloon Tour</p>
+            <p class="pkg-detail">Culture, food, hot-air balloons, and beautiful historic sites.</p>
+            <div class="package-footer">
+              <div class="package-price"><span>from</span> ₦780,000</div>
+              <button class="btn-primary" style="font-size:14px;padding:8px 18px">View Package</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ SERVICES ════════════════════ -->
+<section class="services-section" id="services">
+  <div class="container">
+    <div class="section-inner">
+      <div class="section-heading reveal-heading">
+        <h2>Our Services</h2>
+        <p>AllDay Holdings helps Nigerians simplify their travel experience — from booking flights and hotels to navigating visas and airport transfers, all in one place.</p>
+      </div>
+      <div class="cards-6">
+        <!-- Visa Consultation -->
+        <div class="service-card reveal" data-delay="1">
+          <div class="service-card-img">
+            <img src="images/services/Image (Visa Consultation).png" alt="Visa Consultation" />
+            <div class="service-icon-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 9h10M7 13h6"/></svg>
+            </div>
+          </div>
+          <div class="service-card-body">
+            <h3>Visa Consultation</h3>
+            <p>Get expert guidance, avoid common visa mistakes, and receive personalised support from verified consultants.</p>
+            <a class="learn-more" href="#">
+              Learn more
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </a>
+          </div>
+        </div>
+        <!-- Travel Packages -->
+        <div class="service-card reveal" data-delay="2">
+          <div class="service-card-img">
+            <img src="images/services/Image (Travel Packages).png" alt="Travel Packages" />
+            <div class="service-icon-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2M12 12v4M10 14h4"/></svg>
+            </div>
+          </div>
+          <div class="service-card-body">
+            <h3>Travel Packages</h3>
+            <p>Curated destination packages designed for Nigerians — from Dubai to Zanzibar and beyond.</p>
+            <a class="learn-more" href="#">
+              Learn more
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </a>
+          </div>
+        </div>
+        <!-- Airport Transfers -->
+        <div class="service-card reveal" data-delay="3">
+          <div class="service-card-img">
+            <img src="images/services/Image (Airport transfers).png" alt="Airport Transfers" />
+            <div class="service-icon-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+          </div>
+          <div class="service-card-body">
+            <h3>Airport Transfers</h3>
+            <p>Reliable, comfortable airport pickups and drop-offs at your destination — never worry about taxis again.</p>
+            <a class="learn-more" href="#">
+              Learn more
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </a>
+          </div>
+        </div>
+        <!-- Group Trips -->
+        <div class="service-card reveal" data-delay="4">
+          <div class="service-card-img">
+            <img src="images/services/Image (group trip).png" alt="Group Trips" />
+            <div class="service-icon-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            </div>
+          </div>
+          <div class="service-card-body">
+            <h3>Group Trips</h3>
+            <p>Organise unforgettable group travel experiences — from corporate retreats to family holidays and friend getaways.</p>
+            <a class="learn-more" href="#">
+              Learn more
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </a>
+          </div>
+        </div>
+        <!-- Flight Ticketing -->
+        <div class="service-card reveal" data-delay="5">
+          <div class="service-card-img">
+            <img src="images/services/Image (flight ticketing).png" alt="Flight Ticketing" />
+            <div class="service-icon-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+            </div>
+          </div>
+          <div class="service-card-body">
+            <h3>Flight Ticketing</h3>
+            <p>We search and book the best flight options for your journey — international and domestic, at competitive prices.</p>
+            <a class="learn-more" href="#">
+              Learn more
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </a>
+          </div>
+        </div>
+        <!-- Travel Insurance -->
+        <div class="service-card reveal" data-delay="6">
+          <div class="service-card-img">
+            <img src="images/services/Image (travel insurance).png" alt="Travel Insurance" />
+            <div class="service-icon-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+          </div>
+          <div class="service-card-body">
+            <h3>Travel Insurance</h3>
+            <p>Travel with confidence — our insurance solutions protect you from unexpected medical costs, cancellations, and delays.</p>
+            <a class="learn-more" href="#">
+              Learn more
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ WHY TRUST ════════════════════ -->
+<section class="trust-section">
+  <div class="container">
+    <div class="section-inner">
+      <div class="section-heading reveal-heading">
+        <h2>Why Nigerians Trust AllDay Travels</h2>
+        <p>AllDay Holdings helps Nigerians simplify their travel experience — from booking flights and hotels to navigating visas and airport transfers, all in one place.</p>
+      </div>
+      <div class="cards-4">
+        <div class="trust-card reveal" data-delay="1">
+          <div class="trust-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <div>
+            <h3>Verified Consultants</h3>
+            <p>Work with experienced travel and visa consultants who understand Nigerian travellers and destination requirements.</p>
+          </div>
+        </div>
+        <div class="trust-card reveal" data-delay="2">
+          <div class="trust-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 14l-4-4 4-4M15 10h-9"/><circle cx="17" cy="14" r="3"/><path d="M20 14h1"/></svg>
+          </div>
+          <div>
+            <h3>Transparent Pricing</h3>
+            <p>No hidden fees or surprise charges — every package and service is explained clearly before you pay.</p>
+          </div>
+        </div>
+        <div class="trust-card reveal" data-delay="3">
+          <div class="trust-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          </div>
+          <div>
+            <h3>Fast WhatsApp Support</h3>
+            <p>Get quick answers on WhatsApp or phone when you need to confirm details, changes, or urgent travel plans.</p>
+          </div>
+        </div>
+        <div class="trust-card reveal" data-delay="4">
+          <div class="trust-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </div>
+          <div>
+            <h3>Tailored Packages</h3>
+            <p>Trips curated around Nigerian preferences — from Dubai shopping and desert tours to Zanzibar beaches and group getaways.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ HOW IT WORKS ════════════════════ -->
+<section class="how-section" id="how-it-works">
+  <div class="container">
+    <div class="section-inner">
+      <div class="section-heading reveal-heading">
+        <h2>How It Works</h2>
+        <p>AllDay Holdings helps Nigerians simplify their travel experience — get started in three simple steps.</p>
+      </div>
+      <div class="steps-container reveal">
+        <!-- Step 1 -->
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num-wrap">
+              <div class="step-num">1</div>
+              <div class="step-icon step-icon-1">
+                <img src="images/icons/how it works icon - step 1.svg" alt="Submit details" />
+              </div>
+            </div>
+            <div class="step-connector"></div>
+          </div>
+          <div class="step-right">
+            <div class="step-label">Step 1</div>
+            <h3>Submit Your Details</h3>
+            <p>Fill out a quick form or send us a message with your travel dates, destination, budget, and any visa requirements.</p>
+          </div>
+        </div>
+        <!-- Step 2 -->
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num-wrap">
+              <div class="step-num">2</div>
+              <div class="step-icon step-icon-2">
+                <img src="images/icons/how it works icon - step 2.svg" alt="Speak with agent" />
+              </div>
+            </div>
+            <div class="step-connector"></div>
+          </div>
+          <div class="step-right">
+            <div class="step-label">Step 2</div>
+            <h3>Speak With Your Agent</h3>
+            <p>Get a call or WhatsApp message from a dedicated travel expert who will walk you through your options clearly.</p>
+            <div class="step-note">
+              <img src="https://www.figma.com/api/mcp/asset/16518864-c4fa-411a-aad3-611bddd6cd47" alt="WhatsApp" style="width:18px;height:18px;object-fit:contain;vertical-align:middle;" />
+              Available on WhatsApp
+            </div>
+          </div>
+        </div>
+        <!-- Step 3 -->
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num-wrap">
+              <div class="step-num">3</div>
+              <div class="step-icon step-icon-3">
+                <img src="images/icons/how it works icon - step 3.svg" alt="Pay and travel" />
+              </div>
+            </div>
+          </div>
+          <div class="step-right">
+            <div class="step-label step-label-3">Step 3</div>
+            <h3>Pay &amp; Travel</h3>
+            <p>Once you're happy with the details, confirm your booking, make payment securely, and we handle everything else.</p>
+          </div>
+        </div>
+        <div class="steps-footer">
+          💚 No payment required until you're 100% satisfied with your itinerary and all details are confirmed.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ TESTIMONIALS ════════════════════ -->
+<section class="testimonials-section">
+  <div class="container">
+    <div class="section-inner">
+      <div class="section-heading reveal-heading">
+        <h2>What Nigerian Travellers Are Saying</h2>
+        <p>AllDay Holdings helps Nigerians simplify their travel experience — here's what our satisfied clients have to say.</p>
+      </div>
+      <div class="cards-3-testi">
+        <div class="testi-card reveal" data-delay="1">
+          <div class="testi-quote-icon">"</div>
+          <p class="testi-text">"AllDay Holdings handled my visa and full Dubai package seamlessly. Everything was organised exactly as promised — no stress at all. Highly recommend for any Nigerian planning to travel."</p>
+          <div class="testi-stars">
+            <svg viewBox="0 0 16 16"><path d="M8 1l1.854 3.75L14 5.38l-3 2.924.708 4.127L8 10.25l-3.708 2.181L5 8.304 2 5.38l4.146-.63L8 1z"/></svg>
+            <svg viewBox="0 0 16 16"><path d="M8 1l1.854 3.75L14 5.38l-3 2.924.708 4.127L8 10.25l-3.708 2.181L5 8.304 2 5.38l4.146-.63L8 1z"/></svg>
+            <svg viewBox="0 0 16 16"><path d="M8 1l1.854 3.75L14 5.38l-3 2.924.708 4.127L8 10.25l-3.708 2.181L5 8.304 2 5.38l4.146-.63L8 1z"/></svg>
+            <svg viewBox="0 0 16 16"><path d="M8 1l1.854 3.75L14 5.38l-3 2.924.708 4.127L8 10.25l-3.708 2.181L5 8.304 2 5.38l4.146-.63L8 1z"/></svg>
+            <svg viewBox="0 0 16 16"><path d="M8 1l1.854 3.75L14 5.38l-3 2.924.708 4.127L8 10.25l-3.708 2.181L5 8.304 2 5.38l4.146-.63L8 1z"/></svg>
+          </div>
+          <div class="testi-author">
+            <strong>Chidinma, Lagos</strong>
+            <span>Dubai Getaway</span>
+          </div>
+        </div>
+        <div class="testi-card reveal" data-delay="2">
+          <div class="testi-quote-icon">"</div>
+          <p class="testi-text">"From airport pickup to the resort, everything was smooth and well-coordinated. The AllDay team is genuinely responsive and helpful. My Zanzibar experience exceeded all expectations!"</p>
+          <div class="testi-stars">
+            <svg viewBox="0 0 16 16"><path d="M8 1l1.854 3.75L14 5.38l-3 2.924.708 4.127L8 10.25l-3.708 2.181L5 8.304 2 5.38l4.146-.63L8 1z"/></svg>
+            <svg viewBox="0 0 16 16"><path d="M8 1l1.854 3.75L14 5.38l-3 2.924.708 4.127L8 10.25l-3.708 2.181L5 8.304 2 5.38l4.146-.63L8 1z"/></svg>
+            <svg viewBox="0 0 16 16"><path d="M8 1l1.854 3.75L14 5.38l-3 2.924.708 4.127L8 10.25l-3.708 2.181L5 8.304 2 5.38l4.146-.63L8 1z"/></svg>
+            <svg viewBox="0 0 16 16"><path d="M8 1l1.854 3.75L14 5.38l-3 2.924.708 4.127L8 10.25l-3.708 2.181L5 8.304 2 5.38l4.146-.63L8 1z"/></svg>
+            <svg viewBox="0 0 16 16"><path d="M8 1l1.854 3.75L14 5.38l-3 2.924.708 4.127L8 10.25l-3.708 2.181L5 8.304 2 5.38l4.146-.63L8 1z"/></svg>
+          </div>
+          <div class="testi-author">
+            <strong>Tunde, Abuja</strong>
+            <span>Zanzibar Escape</span>
+          </div>
+        </div>
+        <div class="testi-card reveal" data-delay="3">
+          <div class="testi-quote-icon">"</div>
+          <p class="testi-text">"Planning from the UK for a multi-stop Turkey trip was so easy with AllDay. They understood exactly what Nigerians in the diaspora need and made every step stress-free. Will definitely book again."</p>
+          <div class="testi-stars">
+            <svg viewBox="0 0 16 16"><path d="M8 1l1.854 3.75L14 5.38l-3 2.924.708 4.127L8 10.25l-3.708 2.181L5 8.304 2 5.38l4.146-.63L8 1z"/></svg>
+            <svg viewBox="0 0 16 16"><path d="M8 1l1.854 3.75L14 5.38l-3 2.924.708 4.127L8 10.25l-3.708 2.181L5 8.304 2 5.38l4.146-.63L8 1z"/></svg>
+            <svg viewBox="0 0 16 16"><path d="M8 1l1.854 3.75L14 5.38l-3 2.924.708 4.127L8 10.25l-3.708 2.181L5 8.304 2 5.38l4.146-.63L8 1z"/></svg>
+            <svg viewBox="0 0 16 16"><path d="M8 1l1.854 3.75L14 5.38l-3 2.924.708 4.127L8 10.25l-3.708 2.181L5 8.304 2 5.38l4.146-.63L8 1z"/></svg>
+            <svg viewBox="0 0 16 16"><path d="M8 1l1.854 3.75L14 5.38l-3 2.924.708 4.127L8 10.25l-3.708 2.181L5 8.304 2 5.38l4.146-.63L8 1z"/></svg>
+          </div>
+          <div class="testi-author">
+            <strong>Amaka &amp; Femi, London-based Nigerians</strong>
+            <span>Turkey Adventure</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ BLOG ════════════════════ -->
+<section class="blog-section">
+  <div class="container">
+    <div class="section-inner">
+      <div class="section-heading reveal-heading">
+        <h2>Latest Travel Guides &amp; Visa Tips</h2>
+        <p>AllDay Holdings helps Nigerians simplify their travel experience — stay informed with our latest guides, tips and destination highlights.</p>
+      </div>
+      <div class="cards-3">
+        <!-- Blog 1 -->
+        <div class="blog-card reveal" data-delay="1">
+          <div class="blog-img">
+            <img src="images/blog/Image (5 Things Nigerians Should Know Before Applying for a Dubai Visa).png" alt="5 Things Nigerians Should Know Before Applying for a Dubai Visa" />
+          </div>
+          <div class="blog-body">
+            <div class="blog-meta">
+              <span class="blog-tag">Visa Tips</span>
+              <div class="blog-read-time">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>
+                5 min read
+              </div>
+            </div>
+            <h3>5 Things Nigerians Should Know Before Applying for a Dubai Visa</h3>
+            <p>A simple checklist to help you avoid common mistakes and improve your approval chances.</p>
+            <a class="read-article" href="#">
+              Read Article
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </a>
+          </div>
+        </div>
+        <!-- Blog 2 -->
+        <div class="blog-card reveal" data-delay="2">
+          <div class="blog-img">
+            <img src="images/blog/Image (Top 4 Destinations Nigerians Are Booking in 2025).png" alt="Top 4 Destinations Nigerians Are Booking in 2025" />
+          </div>
+          <div class="blog-body">
+            <div class="blog-meta">
+              <span class="blog-tag">Travel Inspiration</span>
+              <div class="blog-read-time">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>
+                4 min read
+              </div>
+            </div>
+            <h3>Top 4 Destinations Nigerians Are Booking in 2025</h3>
+            <p>From Zanzibar to Turkey, discover the trips that are most popular with Nigerian travellers right now.</p>
+            <a class="read-article" href="#">
+              Read Article
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </a>
+          </div>
+        </div>
+        <!-- Blog 3 -->
+        <div class="blog-card reveal" data-delay="3">
+          <div class="blog-img">
+            <img src="images/blog/Image (How to Plan Your Trip When You Prefer Bank Transfers to Online Payments).png" alt="How to Plan Your Trip When You Prefer Bank Transfers to Online Payments" />
+          </div>
+          <div class="blog-body">
+            <div class="blog-meta">
+              <span class="blog-tag">Travel Planning</span>
+              <div class="blog-read-time">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>
+                6 min read
+              </div>
+            </div>
+            <h3>How to Plan Your Trip When You Prefer Bank Transfers to Online Payments</h3>
+            <p>A step-by-step guide for Nigerians who want flexibility with how they pay for travel.</p>
+            <a class="read-article" href="#">
+              Read Article
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ EMAIL SIGNUP ════════════════════ -->
+<section class="signup-section">
+  <div class="container">
+    <div class="section-inner">
+      <div class="signup-card reveal">
+        <!-- Left side -->
+        <div class="signup-left">
+          <div class="signup-eyebrow">
+            <div class="icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <span>Stay Updated</span>
+          </div>
+          <h2>Get Travel Deals &amp; Visa Tips in Your Inbox</h2>
+          <p>Join our email list to receive Nigerian-focused travel advice, package offers, and visa updates — no spam, just helpful information.</p>
+          <ul class="signup-list">
+            <li>
+              <div class="dot-marker">
+                <div class="dot-marker-icon"><span></span></div>
+                Nigeria-specific visa and travel updates
+              </div>
+            </li>
+            <li>
+              <div class="dot-marker">
+                <div class="dot-marker-icon"><span></span></div>
+                Early access to discounted travel packages
+              </div>
+            </li>
+            <li>
+              <div class="dot-marker">
+                <div class="dot-marker-icon"><span></span></div>
+                Tips for planning trips when paying by bank transfer
+              </div>
+            </li>
+          </ul>
+        </div>
+        <!-- Right side: form -->
+        <div class="signup-right">
+          <div class="form-group">
+            <label for="email">Email address *</label>
+            <input type="email" id="email" placeholder="you@example.com" />
+          </div>
+          <div class="form-group">
+            <label for="fname">First name (optional)</label>
+            <input type="text" id="fname" placeholder="Your first name" />
+          </div>
+          <button class="signup-btn">Subscribe</button>
+          <div class="signup-disclaimer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            By subscribing, you agree to receive occasional emails from AllDay Holdings. You can unsubscribe at any time.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ FOOTER ════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="section-inner">
+      <div class="footer-inner">
+        <!-- Brand -->
+        <div class="footer-brand">
+          <div class="logo-wrap">
+            <img src="images/logos/Allday Logo.png" alt="AllDay Holdings" class="footer-logo-img" />
+          </div>
+          <p>AllDay Holdings helps Nigerians travel with clarity, confidence, and care — from Lagos to the world.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            </a>
+            <a href="#" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+            </a>
+            <a href="#" aria-label="Twitter">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+            </a>
+            <a href="#" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+            </a>
+          </div>
+        </div>
+        <!-- Company links -->
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Our Services</a></li>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <!-- Services links -->
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#">Visa Consultation</a></li>
+            <li><a href="#">Travel Packages</a></li>
+            <li><a href="#">Airport Transfers</a></li>
+            <li><a href="#">Group Trips</a></li>
+          </ul>
+        </div>
+        <!-- Contact -->
+        <div class="footer-col">
+          <h4>Contact Us</h4>
+          <div class="footer-contact-items">
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+              </div>
+              <span>+234 812 000 0000</span>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+              </div>
+              <span>+234 812 000 0000</span>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <span>info@alldaytravel.com.ng</span>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <span>Lagos, Nigeria</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer bottom bar -->
+      <div class="footer-bottom">
+        <div class="footer-bottom-inner">
+          <p>© 2026 AllDay Holdings. All rights reserved.</p>
+          <div class="footer-legal">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms &amp; Conditions</a>
+            <a href="#">Refund Policy</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ════════════════════ JS ════════════════════ -->
+<script>
+  // ── Mobile nav toggle ──────────────────────────────────────────
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+
+  // Close mobile menu when any link inside it is clicked
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+    });
+  });
+
+  // ── Scroll reveal (IntersectionObserver) ──────────────────────
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal, .reveal-heading').forEach(el => {
+    revealObserver.observe(el);
+  });
+
+  // ── Navbar shadow on scroll ────────────────────────────────────
+  const navbar = document.querySelector('.navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 10) {
+      navbar.style.boxShadow = '0 4px 24px rgba(0,0,0,.12)';
+    } else {
+      navbar.style.boxShadow = '0 4px 2px rgba(0,0,0,.08)';
+    }
+  }, { passive: true });
+</script>
+
+</body>
+</html>
